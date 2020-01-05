@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
+		<version>1.5.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -27,15 +27,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
         <dependency>
@@ -52,13 +52,37 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.mybatis.spring.boot</groupId>-->
-            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--<version>2.1.0</version>-->
-        <!--</dependency>-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
 
 	</dependencies>
+
+	<!--<distributionManagement>-->
+		<!--<repository>-->
+			<!--<id>Baidu_Local</id>-->
+			<!--<url>http://maven.baidu-int.com/nexus/content/repositories/Baidu_Local</url>-->
+		<!--</repository>-->
+		<!--<snapshotRepository>-->
+			<!--<id>Baidu_Local_Snapshots</id>-->
+			<!--<url>http://maven.baidu-int.com/nexus/content/repositories/Baidu_Local_Snapshots</url>-->
+		<!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>scmpf</id>-->
+			<!--<url>http://maven.scm.baidu.com:8081/nexus/content/groups/public</url>-->
+			<!--<releases>-->
+				<!--<enabled>false</enabled>-->
+			<!--</releases>-->
+			<!--<snapshots>-->
+				<!--<enabled>true</enabled>-->
+			<!--</snapshots>-->
+		<!--</repository>-->
+	<!--</repositories>-->
+
 
 	<build>
 		<plugins>
@@ -68,5 +92,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
 
 </project>

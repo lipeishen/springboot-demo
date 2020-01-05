@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lipeishen on 2019/12/29.
@@ -11,7 +12,7 @@ public class ZTreeNode {
     private int pid;
     private String name;
     private boolean open;
-    private List<String> children;
+    private List<Map<String,String>> children;
 
     public int getId() {
         return id;
@@ -37,11 +38,11 @@ public class ZTreeNode {
         this.open = open;
     }
 
-    public List<String> getChildren() {
+    public List<Map<String, String>> getChildren() {
         return children;
     }
 
-    public void setChildren(List<String> children) {
+    public void setChildren(List<Map<String, String>> children) {
         this.children = children;
     }
 

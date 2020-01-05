@@ -1,52 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="/static/css/zTreeStyle/zTreeStyle.css"></link>
-    <script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/static/jquery.ztree.all.min.js"></script>
-    <script type="text/javascript" src="/static/jquery.ztree.core.js"></script>
-    <script type="text/javascript" src="/static/jquery.ztree.excheck.js"></script>
-    <script type="text/javascript" src="/static/jquery.ztree.exhide.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/zTreeStyle/zTreeStyle.css"></link>
+    <script type="text/javascript" src="/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="/jquery.ztree.exhide.js"></script>
     <meta charset="UTF-8"></meta>
     <title>Title</title>
     <script type="text/javascript">
-        $(function(){
-            $.ajax({
-                // url:'menuAction!find4tree',/menuAction/find4tree
-                url:'http://localhost:8080/menuAction/find4tree',
-                dataType:'json',
-                success:function(list){
-                    var setting = {
-                        data: {
-                            simpleData: {
-                                enable: true
-                            }
-                        },check:{enable:true}
-                    };
-                    $.fn.zTree.init($("#treeDiv"),setting,list);
-                    var tree=$.fn.zTree.getZTreeObj("treeDiv");
-                    tree.expandAll(true);
-                }
-            });
-        });
-
-      function mySubmit11(){
-            $.ajax({
-                // url:'menuAction!find4tree',/menuAction/find4tree 加个http://
-                //Access to XMLHttpRequest at 'localhost:8080/menuAction/find4tree' from origin 'http://localhost:8080' has been blocked by CORS policy:
-                // Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
-                url:'http://localhost:8080/menuAction/find4tree',
-
-
-            });
-        };
-
 
         $(function(){
             var setting={
                 check: {
                     enable: true,
                     chkStyle: "checkbox"//显示 checkbox 选择框，默认checkbox可选择值radio
+                },
+                async: {
+                    enable: true,//要开启async功能必须设置为true,其他地方同理
+                    dataType: "json",
+                    type: "get",
+                    url: "http://localhost:8081/getTreeData"
                 }
             };
             var zTreeNodes=[
@@ -62,9 +37,40 @@
                         {"name":"渝中区"}
                     ]}
             ];
-            var city = $.fn.zTree.init($("#treeDiv"), setting, zTreeNodes);
+
+
+            var setting1={
+                check: {
+                    enable: true,
+                    chkStyle: "checkbox"//显示 checkbox 选择框，默认checkbox可选择值radio
+                },
+                callback:{
+                    onCheck:zTreeOnCheck
+                },
+                async: {
+                    enable: true,//要开启async功能必须设置为true,其他地方同理
+                    dataType: "json",
+                    type: "get",
+                    url: "http://localhost:8081/getData/fromDb"
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "id",//节点id名
+                        pIdKey: "pid",//父节点id名
+                        rootPId: -1//默认根节点为0
+                    }
+                }
+            };
+            var zTreeNodes=[];
+
+            var city = $.fn.zTree.init($("#treeDiv"), setting1);
 //第一个参数为zTree的DOM容器，第二个为zTree设置详情可见官网api,第三个为zTree的节点数据
         });
+
+        function zTreeOnCheck(event, treeId, treeNode) {
+            alert(treeNode.name);//弹出城市名字
+        }
 
     </script>
 </head>
@@ -83,14 +89,11 @@
 </table>
 <h1>templates下面</h1>
 <div id="treeDiv" class="ztree"></div>
-<button onclick="mySubmit();">确定</button>
-<button onclick="mySubmit11();">确定测试</button>
+<!--<button onclick="mySubmit();">确定</button>-->
+<!--<button onclick="mySubmit11();">确定测试</button>-->
 <form id="ff" action="/menuAction/select" method="post">
     <input type="hidden"  name="roleId" value="${param.roleId}"/>
 </form>
-
-
-
 </body>
 
 </html>
